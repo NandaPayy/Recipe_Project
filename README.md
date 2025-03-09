@@ -1,8 +1,6 @@
-# Recipe_Project
-project for DSC 80 at UCSD
 # Exploring Macronutrient Proportions in Short vs. Long Cooking Recipes
 
-by Aarshia Gupta (aag022@ucsd.edu) and Nanda Payyappilly (npayyappilly@ucsd.edu)
+Authors: Aarshia Gupta (aag022@ucsd.edu) and Nanda Payyappilly (npayyappilly@ucsd.edu)
 
 ---
 
