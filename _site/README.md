@@ -366,10 +366,10 @@ Classifier Hyperparameters:
 
 **Performance Comparison**
 
-Comparing the confusion matrices for the baseline and final model, the baseline model heavily favored predicting "short" cooking times, leading to **poor recall** for "long" recipes, as it only correctly classified 2,596 "long" labels while misclassifying 14,790 as "short." In contrast, the final model significantly **improved recall** for "long" recipes, correctly identifying 14,585 and reducing misclassifications to 2,801. Although this improvement led to more false positives for "short" recipes (increasing from 2,124 to 13,176), it resulted in a more **balanced classification** overall as seen by the final model’s F1 score. 
+Comparing the confusion matrices for the baseline and final model, the final model demonstrates a **significant improvement** over the baseline in its ability to **correctly classify "long" cooking time recipes**. In the baseline model, only 2,596 "long" recipes were correctly predicted, whereas the final model improved this to 7,747, showing a **substantial increase in recall** for the "long" category. Additionally, the number of misclassified "long" recipes (predicted as "short") **dropped** from 14,790 in the baseline to 9,639 in the final model, a marked reduction in false negatives. While the final model **sacrificed some precision** for "short" recipes, with an increase in false positives for "short" labels (from 2,124 to 4,066), this trade-off was necessary to **better balance the classification** of both categories. Overall, the final model significantly reduced the baseline bias toward predicting "short" recipes, achieving a more **balanced and effective performance** for both "short" and "long" cooking times.
 
 <iframe
-  src="assets/conf_matrix.html"
+  src="assets/final_cf_matrix.html"
   width="800"
   height="600"
   frameborder="0"
