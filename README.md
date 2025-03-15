@@ -327,6 +327,7 @@ For our final model, we built upon the baseline Logistic Regression classifier b
 The final model used `balance_score`, `sodium`, `sugar`, `saturated_fat`, `total_fat`, `calories`, and `n_steps` as features to predict the cooking time category.
 
 **Features**
+
 1. `balance_score`
 - The balance score measures how closely a recipe’s macronutrient proportions (carbohydrates, protein, and fat) align with an ideal distribution. The ‘Distribution of Balance Scores by Cooking Time Category’ histogram shows that while short and long-cooking recipes have similar balance score distributions, **long-cooking recipes exhibit slightly greater variation**. This suggests that recipes with diverse macronutrient compositions tend to have longer cooking times, likely due to **increased complexity** and multi-step preparation. Thus, balance score is a **valuable predictor** of cooking duration.
 
@@ -339,6 +340,7 @@ The final model used `balance_score`, `sodium`, `sugar`, `saturated_fat`, `total
 - The number of steps in a recipe is a **strong indicator of complexity**, with multi-step processes often requiring longer preparation times. The ‘Distribution of Number of Steps by Cooking Time Category’ histogram shows that while both short and long-cooking recipes follow a right-skewed distribution, **long-cooking recipes tend to have more steps on average**. This suggests that intricate recipes with more steps, such as casseroles, pastries, or braised dishes, are more likely to fall into the long cooking time category. By incorporating this feature, our model gains a clearer distinction between simpler and more complex recipes, **improving** its ability to accurately predict cooking time categories.
 
 **Preprocessing steps**
+
 1. **StandardScaler** for `sodium`, `sugar`, `saturated_fat`, and `total_fat`:
 These features contain potential outliers. So, standardization ensures they are scaled consistently, helping the model avoid being biased toward features with larger ranges.
 2. **Binarizer** for `calories`:
@@ -349,15 +351,17 @@ This hyperparameter controls the number of quantile divisions applied to the bal
 This feature was kept unchanged, as its numeric values naturally reflect recipe complexity.
 
 **Modeling Algorithm**
+
 We chose **Logistic Regression** as our modeling algorithm as our prediction problem is a binary classification. Logistic Regression is also computationally efficient, making it well-suited for this task. To enhance performance, we used **GridSearchCV** with 5-fold cross validation to tune both preprocessing parameters and model hyperparameters. The **F1-score** was used as the scoring metric to ensure balance between precision and recall.
 
 **Hyperparameter Tuning Results**
+
 1. `preprocessor__quantile__n_quantiles`: 200
 - A high number of quantiles allowed the model to capture the fine-grained distribution of balance_score, thus handling skews more efficiently.
 2. `preprocessor__binarizer__threshold`: 500
 - A lower calorie threshold (500) was optimal for distinguishing recipes based on their complexity and duration.
 Classifier Hyperparameters:
-3. `classifier`__C = 0.01
+3. `classifier__C` = 0.01
 - This low regularization strength provided better generalization and is ideal to prevent overfitting.
 4. `classifier__penalty` = 'l2'
 - L2 regularization smoothed the model’s weights helping it perform consistently across both classes.
@@ -380,6 +384,7 @@ The metric **F1 score** of the final model is **0.531**(rounded), which is a **0
 ---
 
 ## Fairness Analysis
+
 For our fairness analysis, we split the recipes into two groups: **high rating recipes and low rating recipes**. High-rating recipes are defined as recipes with a rating greater than or equal to the median rating of the dataset, while low-rating recipes have a rating below the median. We selected **2.5** as the threshold for ratings since the rating scale ranges from 1 to 5, and 2.5 represents the midpoint, providing an even split for categorizing recipes as either highly or lowly rated.
 
 We evaluate the **precision parity** of the model for these two groups because precision reflects the model's ability to correctly identify cooking time category (short or long) without mislabeling. Precision is particularly **important** to minimize false positives, which could mislead users about cooking times for recipes, impacting their decisions or experiences. For example, if a low-rated recipe is incorrectly predicted as having a long cooking time, users might avoid it unnecessarily.
